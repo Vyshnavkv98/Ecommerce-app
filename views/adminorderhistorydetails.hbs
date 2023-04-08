@@ -1,0 +1,254 @@
+{{> adminheader}}
+
+
+<style>
+  body {
+    background-color: rgb(240, 243, 247);
+  }
+
+  .name_section {
+    height: 60%;
+  }
+
+  .individual {
+    height: 7rem;
+  }
+
+  p {
+    line-height: .25rem;
+  }
+
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+  }
+
+  span {
+    color: rgba(29, 29, 29, 0.803);
+  }
+
+  .font {
+    font-size: 0.9rem;
+    
+  }
+ .orderid {
+    width: 16rem;
+  }
+
+  .contents {
+    padding-top: 2rem;
+  }
+
+  .action {
+    border: transparent;
+  }
+
+  .track-line {
+height: 2px !important;
+background-color: #2ac028;
+opacity: 1;
+}
+
+.dot {
+height: 10px;
+width: 10px;
+margin-left: 3px;
+margin-right: 3px;
+margin-top: 0px;
+background-color: #2ac028;
+border-radius: 50%;
+display: inline-block
+}
+
+.big-dot {
+height: 25px;
+width: 25px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+background-color: #2ac028;
+border-radius: 50%;
+display: inline-block;
+}
+
+.big-dot i {
+font-size: 12px;
+}
+
+.card-stepper {
+z-index: 0
+}
+.productcard{
+  border-radius: 8px;
+}
+.productcard1{
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px 3px rgb(217, 217, 217);
+}
+</style>
+
+<div class="container p-2">
+
+  <div class="row d-flex mt-1 mt-4">
+
+    <div class="col-md-9 col-lg-9 card productcard1  ">
+      <div class="d-flex  justify-content-between pt-3 orderid">
+        <div>
+          <span> Delivery Address</span>
+        </div>
+        <div>
+        </div>
+      </div>
+
+      <div class="card  mb-2  productcard">
+        <div class="card-body address d-flex flex-column productcard">
+          <span class="">{{orderdata.address.name}}</span>
+          <span class="font ">{{orderdata.address.address}}</span>
+          <span class="font ">{{orderdata.address.city}}</span>
+          <span class="font">{{orderdata.address.landmark}}</span>
+          <span class="font ">{{orderdata.address.locality}}</span>
+          <span class="font ">{{orderdata.address.pincode}}</span>
+          <span class="font ">{{orderdata.address.mobile}}</span>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-md-3 col-lg-3 card d-flex flex-coloumn px-2 productcard1">
+
+      <div class="card-body p-0 py-5 d-flex">
+
+        <div class="col-md-6 col-lg-7 card d-flex  px-2 action ">
+          <span>More Actiions</span>
+          <div class="d-flex">
+            <span class="py-3"><i class="fa-solid fa-file-arrow-down"></i></span>
+            <span class="p-3">Download invoice</span>
+          </div>
+
+        </div>
+        <div class="col-md-6 col-lg-5 card d-flex   action">
+          <button class="coupon-action  btn btn-sm btn-outline-primary "
+            onclick="window.location.href='/invoice?id={{orderid}}'">invoice</button>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="container p-3">
+
+  <div class="row d-flex mt-4">
+
+    <div class="col-md-9 col-lg-9 card productcard1 ">
+      <div class="d-flex  justify-content-between pt-3 orderid ">
+        <div>
+          <span>OrderId:  </span>
+        </div>
+        <div>
+          <span class="font">{{orderdata._id}}</span>
+        </div>
+      </div>
+      {{#each orderdata.items}}
+      <div class="card my-2 productcard " style="background-color: ;">
+        <div class="card-body">
+          <div class=" d-flex">
+            <div class="col-md-2 col-lg-2">
+              <div class="image-container">
+                <img src="/images/{{this.product.image.[0]}}" alt="/images/{{this.image.[0]}}" width="100%"
+                  height="75px">
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-4 name_section">
+              <div class="flex-column">
+                <span>{{this.product.name}}</span>
+                <span class="font">₹ {{this.product.price}}</span>
+                <span class="font">Qty: {{this.quantity}}</span>
+              </div>
+            </div>
+
+ <div class="col-md-4 col-lg-4 name_section">
+
+  
+
+ </div>
+
+          </div>
+        </div>
+      </div>
+
+      {{/each}}
+    </div>
+    <div class="col-md-3 col-lg-3 card d-flex flex-coloumn px-2 content productcard1 ">
+
+      <div class="card-body p-0  productcard my-5 py-3" style="border-color: rgb(70, 70, 70);">
+
+
+
+        {{!-- {{#if (or (eq orderstatus 'pending') (eq orderstatus 'packing') (eq orderstatus 'shipped'))}}
+        <div class="w-100  d-flex justify-content-end">
+          <button class="coupon-action btn btn-md btn-secondary mt-2 mr-2"
+            onclick="window.location.href='/order/cancel?id={{orderid}}'">Cancel</button>
+        </div>
+
+        {{/if}}
+        {{#ifeq orderstatus 'delivered'}}
+        <div class="w-100  d-flex justify-content-end">
+          <button class="coupon-action btn btn-lg btn-secondary mt-2"
+            onclick="window.location.href='/order/return?id={{orderid}}'">Return</button>
+        </div>
+        {{/ifeq}} --}}
+
+
+
+
+        <div class=" card  ">
+          <div class="card-body d-flex justify-content-between productcard ">
+            <div>
+              <span>Orderdate</span>
+            </div>
+            <div>
+              <span class="font">{{formatDate orderdata.orderdate "DD-MM-YYY"}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class=" card my-3">
+          <div class="card-body d-flex justify-content-between productcard">
+            <div>
+              <span>Order Status</span>
+            </div>
+            <div>
+              <span class="font" style="color: rgb(1, 167, 1);">{{orderdata.orderstatus }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class=" card my-3">
+          <div class="card-body d-flex justify-content-between ">
+            <div>
+              <span style="color: rgb(228, 50, 10);">Order Total</span>
+            </div>
+            <div>
+              <span class="font" style="color: rgb(228, 50, 10);">₹ {{orderdata.totalbill }}</span>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<script src="https://kit.fontawesome.com/0b7fc6810b.js" crossorigin="anonymous"></script>
+

@@ -1,0 +1,235 @@
+{{#if data}}
+{{> userheaderafter}}
+{{else}}
+{{> userheader}}
+{{/if}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+
+
+
+
+<style>
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  b {
+    font-size: larger;
+  }
+
+  .deletebtn {
+    left: 14rem;
+  }
+
+  .stockout1 {
+    width: 7rem;
+    height: 1.65rem;
+    background-color: rgb(0, 0, 0);
+    font-size: large;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+
+  }
+</style>
+<!-- shop section -->
+<section class="shop_section layout_padding">
+  <div class="container">
+    <h6 class="p-2 d-flex justify-content-end text-muted" id="itemsLength2"> {{wishlistitemcount}}</h6>
+    <div class="heading_container heading_center d-flex text-align-center justify-content-center">
+      <b>
+        Wishlist
+      </b>
+    </div>
+    <div class="row mt-5">
+      {{#if wishlistitemcount}}
+
+
+
+      {{#each wishlist}}
+      {{#each items}}
+      <div class="col-sm-6 col-md-4 col-lg-3 ">
+        <div class="box" class="wishlist-item-{{@index}}">
+          <a> <button onclick="wishlistDelete('{{_id}}')" class="btn deletebtn position-absolute " style="color:red">
+              <i class="fa fa-trash" area-hidden="true"></i>
+            </button>
+          </a>
+
+          <a href="/productdetails?id={{_id}}">
+            <div class="img-box">
+              {{!-- <p style="color: red;">{{message}}</p> --}}
+              <img src="/images/{{image.[0]}}" alt="" width="250px" height="310px">
+              {{#if quantity}}
+              {{else}}
+              <div class="label text-light d-flex justify-content-center align-items-center mx-2  stockout1">out of
+                stock
+              </div>
+              {{/if}}
+            </div>
+
+          </a>
+        </div>
+        <div class="mt-2 detail-box mb-2 px-4">
+          <h6>
+            {{name}}
+          </h6>
+          <h6>
+            Price
+            <span>
+              ₹{{price}}
+            </span>
+          </h6>
+          <div class="btn-box d-flex justify-content-start  mt-2 ">
+
+                     {{#ifnoteq quantity 0}}
+
+
+                <button onclick="addToCart('{{_id}}')" class="btn btn-sm w-100" value="Add to cart"
+                aria-hidden="true" style="background-color: rgb(10, 150, 148); color: white;"> add to cart</button>
+              </button>
+              {{else}}
+              <button class="btn btn-sm w-100" value="Add to cart" aria-hidden="true" style="color: red; border: 1px solid red;"> Out of Stock</button>
+              </button>
+            {{/ifnoteq}}
+          </div>
+          <p class="text-danger mx-auto" id="alertmsg{{_id}}"></p>
+        </div>
+
+      </div>
+      {{/each}}
+      {{/each}}
+
+      {{else}}
+      <div class="row w-100  ">
+        <div class="col-md-12  col-lg-12 col-12 w-100  m-0 p-0 d-flex align-items-center justify-content-center ">
+          <img class="w-50 h-75  " src="/img/empty_wishlist.png" alt="/img/cartemptyimg.png">
+
+        </div>
+
+      </div>
+
+      {{/if}}
+    </div>
+
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+<script>
+
+</script>
+
+<script>
+  function wishlistDelete(data) {
+    const id = data;
+    console.log(data)
+    const Swal = window.Swal;
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this item?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Delete the item
+
+
+        fetch("/wishlist/delete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            id: id
+          })
+        })
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        location.reload()
+      }
+
+    })
+  }
+</script>
+<script>
+
+  async function addToCart(id, index) {
+    if (!id) {
+      console.log('Error: invalid data');
+      return;
+    }
+
+    try {
+      const response = await fetch("/wishlist/addtocart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: id
+        })
+      })
+
+      const data = await response.json();
+
+
+      const wishlistItem = document.querySelectorAll(`.wishlist-item-${index}`);
+      if (wishlistItem) {
+        wishlistItem.forEach(item => {
+          item.parentElement.removeChild(item);
+        });
+      }
+
+
+
+      Swal.fire({
+        toast: true,
+        icon: 'success',
+        title: 'Added to cart!',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+   location.reload()
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        toast: true,
+        icon: 'error',
+        title: 'Failed to add item to cart',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  }
+
+
+</script>
+
+
+{{> userfooter}}

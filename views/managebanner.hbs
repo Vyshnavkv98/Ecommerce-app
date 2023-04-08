@@ -1,0 +1,102 @@
+ {{> adminheader}}
+
+ <div class="container py-3">
+    
+    
+    <div class="row justify-content-center ">
+
+ 
+ <div class="col-md-8">
+        <h2>Manage Banners</h2>
+        <table class="table">
+          <thead>
+ 
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Description</th>
+              <th>Link</th>
+              <th>Actions</th>
+            </tr>
+          
+          </thead>
+           {{#each bannerdata}}
+          <tbody>
+           
+            <tr>
+              <td>{{this.name}}</td>
+              <td><img src="/images/{{this.image}}"  width="100px" height="100px" alt="{{this.name}}" class="banner-image"></td>
+              <td>{{this.description}}</td>
+              <td>{{this.link}}</td>
+           
+              <td>
+                <a href="/banners/{{this._id}}" class="btn btn-sm btn-primary">Edit</a>
+                  <button type="submit" class="btn btn-sm btn-danger" onclick="showConfirm('{{this._id}}')">Delete</button>
+              </td>
+            </tr>
+          
+          </tbody>
+            {{/each}}
+        </table>
+      </div>
+      </div>
+    </div>
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+<script>
+ function showConfirm(data) {
+    const id = data;
+    console.log(data)
+    const Swal = window.Swal;
+
+Swal.fire({
+  title: 'Are you sure?',
+  text: 'Do you really want to delete this item?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it!',
+  cancelButtonText: 'Cancel'
+}).then((result) => {
+  if (result.isConfirmed) { 
+    // Delete the item
+
+
+    fetch("/admin/deletebanner", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id
+      })
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data)
+            Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    
+  }
+  location.reload()
+  
+})
+  }
+
+</script>
+
+
+
+
+      {{> adminfooter}}

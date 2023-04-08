@@ -1,0 +1,557 @@
+{{#if data}}
+{{> userheaderafter}}
+{{else}}
+{{> userheader}}
+{{/if}}
+
+
+{{!--
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head> --}}
+<style>
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .radiobtn {
+        display: flex;
+    }
+
+    .address {
+        padding-left: 1rem;
+    }
+
+    .address-block {
+        box-shadow: 10px 10px 20px 20px rgba(209, 209, 209, 0.353);
+
+    }
+
+    .btnb {
+        display: none;
+    }
+
+    .address-block:hover .btnb {
+        display: block;
+    }
+
+
+
+
+    .button a {
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+
+        color: #FFFFFF;
+    }
+
+    .button:hover {
+        opacity: 0.8
+    }
+
+    .cart_section {
+        width: 100%;
+
+    }
+
+    .cart_title {
+        font-size: 30px;
+        font-weight: 500
+    }
+
+    .para {
+        line-height: 13px;
+        font-size: 16px;
+    }
+
+
+
+
+
+    .order_total {
+        width: 100%;
+        height: 60px;
+        margin-top: 30px;
+        border: solid 1px #c9c7c7c2;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+
+        background-color: #ffffff
+    }
+
+    .order_total_title {
+        display: inline-block;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.5);
+        line-height: 60px
+    }
+
+    .order_total_amount {
+
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+
+
+    .cart_button_clear {
+
+        border: none;
+        font-size: 18px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.5);
+        background: #FFFFFF;
+        outline: none;
+        cursor: pointer;
+
+    }
+
+    .cart_button_clear:hover {
+        border-color: #0e8ce4;
+        color: #0e8ce4
+    }
+
+    .cart_button_checkout {
+
+        border: none;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 18px;
+        color: #FFFFFF;
+        cursor: pointer;
+
+    }
+
+    .box {
+        border: solid 1px #c9c7c7c2;
+        ;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        width: 100%;
+        height: auto;
+        box-shadow: 10px 10px 10px 0px rgba(209, 209, 209, 0.353);
+    }
+
+    .box1 {
+        border: solid 1px #c9c7c7c2;
+        ;
+        background-color: #adadad34;
+        width: 100%;
+        height: 3.2rem;
+        box-shadow: 10px 10px 10px 0px rgba(209, 209, 209, 0.353);
+        border-radius: 8px 8px 0px 0px;
+    }
+
+    .box2 {
+        border: solid 1px #c9c7c7c2;
+        display: flex;
+        padding-top: 1rem;
+        padding-left: 1.2rem;
+        text-align: center;
+        justify-content: space-between;
+        background-color: #FFFFFF;
+        width: 100%;
+        height: 4rem;
+        box-shadow: 10px 10px 10px 0px rgba(209, 209, 209, 0.353);
+    }
+
+    .butt {
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .pay {
+        font-weight: 600;
+        padding: 12px;
+        padding-left: 2rem;
+
+    }
+
+    .razo {
+        padding-left: 1.2rem;
+    }
+</style>
+
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <span>Shopping cart</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6 class="coupon__link"><span class="icon_tag_alt"></span> <a href="#">Have a coupon?</a> Click
+                    here to enter your code.</h6>
+            </div>
+        </div>
+        <form action="/checkout" class="checkout__form" method="post">
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <div class="card mt-3  address-block">
+
+                        {{#each addressdata}}
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <div class="radiobtn">
+                                    <input type="radio" name="address" id="{{_id}}" value="{{_id}}" checked>
+                                    <label for="{{_id}}">
+                                        <div class="address">
+                                            <h4>{{name}}</h4><br>
+                                            <p class="para">{{mobile}},{{address}}</p>
+
+                                            <p class="para">{{locality}}, {{city}}, {{state}} <span>{{pincode}}</span>
+                                            </p>
+                                            <p class="para"> {{landmark}},{{alternatenumber}}</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary profile-button btnb" type="button"
+                                    onclick="window.location.href='/deleteaddress?id={{_id}}'">Delete</button>
+                            </li>
+                        </ul>
+                        {{/each}}
+                    </div><br>
+
+                    <div>
+
+                        <div class="box1">
+                            <div class="">
+                                <h4 class="pay">PAYMENT</h4>
+                            </div>
+
+                        </div>
+                        <div class="box2">
+
+                            <div class="payment-options">
+                                <label>
+                                    <input type="radio" name="paymentmode" value="cod" checked>
+                                    Cash on Delivery
+                                </label>
+                                <label class="razo">
+                                    <input type="radio" name="paymentmode" value="razopay">
+                                    Razopay
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div><br>
+
+
+
+                    <div class="box " id="addressbox">
+                        <div class="" id="addressbox1">
+                            <a type="button" onclick="newadd()" id="newaddress" class="butt">Add address +</a>
+                        </div>
+
+                    </div><br>
+
+
+                    <h5>Billing detail</h5>
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="checkout__order">
+                        <h5>Your order</h5>
+                        <div class="checkout__order__product">
+                            <p id="aaa" style="color: red;"></p>
+                            <ul>
+                                <li>
+                                    <span class="top__text">Product</span>
+                                    <span class="top__text__right">Total</span>
+                                </li>
+                                {{#each cartdata}}
+                                <li>{{this.product.name}} ({{this.quantity}})<span>{{calcTotal this.quantity
+                                        this.product.price}}</span>
+                                </li>
+                                {{/each}}
+
+                            </ul>
+                        </div>
+                        <div class="checkout__order__total">
+                            <ul>
+                                <li>Subtotal <span>Rs. {{subtotal}}</span></li>
+
+
+                                <li id="discount"><span></span></li>
+                                <li id="walletdis"><span></span></li>
+                                <input type="number" id="walletapplied" name="walletapplied" hidden>
+                                <input type="number" id="subtotalinput" name="subtotal" hidden>
+
+                                <input type="number" hidden value="{{walletamount}}">
+                                <input type="number" hidden id="billamount" name="totalbill" value="{{subtotal}}">
+                                <li>Total <span id="totalbills">Rs. {{subtotal}}</span></li>
+                            </ul>
+                        </div>
+                        <div class="checkout__order__total">
+                            <ul>
+                                <input type="number" id="walletAmount" value="{{walletamount}}" hidden>
+                                <li id="balance"><input id="checkbox1" class="mx-2" type="checkbox">Wallet Amount <span
+                                        id="wallet">Rs. {{walletamount}}</span></li>
+                            </ul>
+                        </div>
+
+                        <button type="submit" class="site-btn">Place oder</button>
+                    </div><br><br>
+                    <div class="discount__content">
+                        <h6>Discount codes</h6>
+                        <form id="form" action="">
+                            <div class="mt-2">
+                                <div class="w-100 d-flex flex-column ">
+                                    <input class="form-control form-floating" type="text" name="coupon"
+                                        placeholder="Enter your coupon code">
+                                </div>
+                                <div class="mt-2 w-100 d-flex justify-content-end">
+                                    <p type="button" onclick="submitcoupon()" class="site-btn">Apply</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+
+<!-- Checkout Section End -->
+
+<!-- Instagram Begin -->
+<div class="instagram">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
+                    <div class="instagram__text">
+                        <i class="fa fa-instagram"></i>
+                        <a href="#">@ ashion_shop</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
+                    <div class="instagram__text">
+                        <i class="fa fa-instagram"></i>
+                        <a href="#">@ ashion_shop</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
+                    <div class="instagram__text">
+                        <i class="fa fa-instagram"></i>
+                        <a href="#">@ ashion_shop</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
+                    <div class="instagram__text">
+                        <i class="fa fa-instagram"></i>
+                        <a href="#">@ ashion_shop</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
+                    <div class="instagram__text">
+                        <i class="fa fa-instagram"></i>
+                        <a href="#">@ ashion_shop</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
+                    <div class="instagram__text">
+                        <i class="fa fa-instagram"></i>
+                        <a href="#">@ ashion_shop</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Instagram End -->
+<script src="/js/checkout.js"></script>
+
+
+<script>
+
+    async function newadd() {
+        const addressbox1 = document.getElementById('addressbox1')
+        const addressbox = document.getElementById('addressbox')
+        const newaddress = document.getElementById('newaddress')
+        let initialHTMLContent = addressbox;
+        addressbox.innerHTML = `
+        <a type="button" onclick="newadd1()" id="newaddress" class="butt">Add address +</a>
+<div class="container mt-5">
+    <form class="form1" action="" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="phone">Phone Number</label>
+                <input type="number" class="form-control" id="phone" name="mobile" placeholder="Enter your phone number" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address1">Locality</label>
+            <input type="text" class="form-control" id="locality" name="locality" placeholder="Enter your address line 1" required>
+        </div>
+        <div class="form-group">
+            <label for="address1">Address</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address line 1" required>
+        </div>
+       
+        <div class="form-group">
+            <label for="address2">Country</label>
+            <input type="text" class="form-control" id="country" name="country" placeholder="Enter your address line 2" required>
+        </div>
+        
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" class="form-control" id="state" name="satae" placeholder="Enter your address line 1" required>
+            </div>
+              <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="city">landmark</label>
+                <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Enter your city" required>
+            </div>
+            <div class="form-group col-md-6">
+               <label for="number">Alternatenumber</label>
+            <input type="number" class="form-control" id="Alternatenumber" name="alternatenumber" placeholder="Enter your zip code" required>
+            </div>
+        </div>
+
+             <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
+            </div>
+            <div class="form-group col-md-6">
+               <label for="zip">Zip Code</label>
+            <input type="number" class="form-control" id="zip" name="pincode" placeholder="Enter your zip code" required>
+            </div>
+        </div>
+
+        <p style="color: red;">{{message}}</p>
+                    
+                    <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="button" onclick="newadd1()">Save Profile</button></div>
+    </form>
+</div><br>
+`
+
+    }
+
+
+    async function newadd1() {
+        const name = document.getElementById('name').value
+        const phone = document.getElementById('phone').value
+        const locality = document.getElementById('locality').value
+        const address = document.getElementById('address').value
+        const country = document.getElementById('country').value
+        const state = document.getElementById('state').value
+        const landmark = document.getElementById('landmark').value
+        const Alternatenumber = document.getElementById('Alternatenumber').value
+        const city = document.getElementById('city').value
+        const zip = document.getElementById('zip').value
+
+        const addressbox1 = document.getElementById('addressbox1')
+        const addressbox = document.getElementById('addressbox')
+        const newaddress = document.getElementById('newaddress')
+        let initialHTMLContent = addressbox;
+        console.log(name, phone, locality)
+        const response = await fetch('/checkout/addaddress', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                mobile: phone,
+                pincode: zip,
+                locality: locality,
+                address: address,
+                city: city,
+                state: state,
+                landmark: landmark,
+                alternatenumber: Alternatenumber
+
+            })
+
+
+        })
+        addressbox.innerHTML = ''
+        const data = await response.json()
+        addressbox.innerHTML += `
+                        <div class=""  id="addressbox1">
+                            <a type="button"  id="newaddress" class="butt">Add address +</a>
+                        </div>
+
+                   `
+    }
+
+
+
+
+
+</script>
+
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/jquery.countdown.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.nicescroll.min.js"></script>
+<script src="js/main.js"></script>
+{{> userfooter}}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/adminsignup.css" type="text/css">
+
+
+</head>
+
+<style>
+   .dropdown1 button {
+      background-color: #ffff; /* Change the background color to red */
+      border-color: #fff;
+      color: #1a1a1a; /* Change the text color to white */
+      box-shadow: none;
+      background: none repeat scroll 0% 0% #ffffff;
+        font-size: large;
+        border: none;
+    }
+   .dropdown1 button:hover{
+    cursor:pointer;
+   }
+.dropdown1{
+    background-color: white;
+    border-color: white;
+     box-shadow: none;
+      border: none;
+      color: #474747;
+    
+   
+}
+   
+   .dropdown1:hover{
+    cursor: pointer;
+   }
+    /* Style the dropdown content */
+
+
+    /* Show the dropdown content when the button is clicked */
+
+    #blog {
+        pointer-events: none;
+    }
+
+    #contact {
+        pointer-events: none;
+    }
+</style>
+
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 col-lg-2">
+                <div class="header__logo">
+                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                <nav class="header__menu">
+                    <ul>
+
+                        <li class="active"><a href="/home">Home</a></li>
+                        <li><a href="/shop">Shop</a></li>
+
+                        {{!-- <li><a href="/shop">Men’s</a></li>
+                        <li><a href="./shop.html">Shop</a></li> --}}
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+
+                                <li><a href="/cart">Shop Cart</a></li>
+                                <li><a href="/checkout">Checkout</a></li>
+
+                            </ul>
+                        </li>
+                        <li><a id="blog" href="./blog.html">Blog</a></li>
+                        <li><a id="contact" href="./contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__right">
+                    <div class="header__right__auth">
+                        
+
+                        <div class="dropdown1">
+                            <span class="" data-toggle="dropdown" id="dropdownMenuButton"   aria-haspopup="true"  
+                                aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{data.name}}
+
+                            </span>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                                <a class="dropdown-item" href="/profile/{{data._id}}">Profile</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <ul class="header__right__widget">
+                        <li><span class="icon_search search-switch"></span></li>
+                        <li><a href="/wishlist"><span class="icon_heart_alt"></span>
+                                <div class="tip">2</div>
+                            </a></li>
+                        <li><a href="/cart"><span class="icon_bag_alt"></span>
+                                <div class="tip">2</div>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+
+<script src="path/to/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+<body>

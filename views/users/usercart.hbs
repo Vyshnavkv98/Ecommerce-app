@@ -1,0 +1,321 @@
+{{#if data}}
+{{> userheaderafter}}
+{{else}}
+{{> userheader}}
+{{/if}}
+
+<style>
+    .cart_quantity {
+        display: flex;
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .qty-input {
+        width: 50px;
+        text-align: center;
+        margin: 0 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px 10px;
+        outline: none;
+
+    }
+
+    .qty-input[type="number"]::-webkit-inner-spin-button,
+    .qty-input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+
+    .plus-btn,
+    .minus-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .plus-btn:hover,
+    .minus-btn:hover {
+        background-color: #ccc;
+    }
+
+    .plus-btn i,
+    .minus-btn i {
+        font-size: 14px;
+        color: #333;
+    }
+
+    @media screen and (max-width: 768px) {
+        .qty-input {
+            width: 40px;
+            font-size: 14px;
+        }
+
+        .plus-btn,
+        .minus-btn {
+            width: 25px;
+            height: 25px;
+        }
+
+        .plus-btn i,
+        .minus-btn i {
+            font-size: 12px;
+        }
+    }
+</style>
+
+
+<!-- Header Section End -->
+
+<!-- Breadcrumb Begin -->
+
+<body>
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+
+    <!-- Shop Cart Section Begin -->
+    <section class="shop-cart spad">
+        <div class="container">
+            {{#if cartdata.length}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            {{#each cartdata}}
+                            <tbody>
+                                <tr>
+                                    <td class="cart__product__item">
+                                        <img src="/images/{{this.product.image.[0]}}" alt="" width="130px"
+                                            height="120px">
+                                        <div class="cart__product__item__title">
+                                            <h6>{{this.product.name}}</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price" id="price">Rs. {{this.product.price}}</td>
+                                    <input type="hidden" name="productprice" value="{{this.product.price}}">
+                                    <input type="hidden" name="productId" value="{{this.product._id}}">
+                                    <td class="cart__quantity">
+                                        <div class="quantity">
+                                            <button class="minus-btn" onclick="totalprice('{{this.product._id}}','dec')"
+                                                type="button"><i class="fa fa-minus"></i></button>
+                                            <input type="number" id="{{this.product._id}}" class="qty-input"
+                                                name="num-product" value="{{this.quantity}}" min="1"
+                                                max="{{this.product.quantity}}" readonly>
+                                            <button class="plus-btn"
+                                                onclick="totalprice('{{this.product._id}}','inc','{{this.product.quantity}}')"
+                                                type="button"><i class="fa fa-plus"></i></button>
+                                        </div>
+
+                                    </td>
+                                    <td class="cart__total" id="total" name="productTotal">{{calcTotal
+                                        this.product.price this.quantity}}</td>
+                                    <td class="cart__close"
+                                        onclick="window.location.href='/deletecart?id={{this._id}}'"><span
+                                            class="icon_close"></span></td>
+                                </tr>
+                            </tbody>
+                            {{/each}}
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="/shop">Continue Shopping</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-4 offset-lg-2">
+                    <form action="" method="post">
+                        <div class="cart__total__procced">
+                            <h6>Cart total</h6>
+                            <ul>
+                                <li>Subtotal <span id="subtotal">Rs.{{subtotal}}</span></li>
+                                {{!-- <li>Total <span>$ 750.0</span></li> --}}
+                            </ul>
+                            <a href="/checkout" class="primary-btn" type="submit">Proceed to checkout</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{else}}
+            <div class="row w-auto ">
+                <div
+                    class="col-md-12  col-lg-12 col-12 w-auto m-0 p-0 d-flex align-items-center justify-content-center ">
+                    <img class="w-50 h-75  " src="/img/cartemptyimg.png" alt="/img/cartemptyimg.png">
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12  d-flex align-items-center justify-content-center ">
+                <div class="cart__btn">
+                    <a href="/shop">Continue Shopping</a>
+                </div>
+            </div>
+
+
+            {{/if}}
+            {{log "cartdata:" cartdata}}
+        </div>
+    </section>
+
+    <!-- Shop Cart Section End -->
+
+    <!-- Instagram Begin -->
+    <div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const totalprice = async (id, act, stock) => {
+            const elem = document.getElementById(id)
+            if (act === 'inc') {
+                const stocValue = stock;
+                elem.value < Number(stocValue) ? elem.value = Number(elem.value) + 1 : ''
+
+            } else if (act === 'dec') {
+                elem.value > 1 ? elem.value = Number(elem.value) - 1 : ''
+            }
+
+            let subTotal = 0
+            let datas = []
+            let length = document.getElementsByName('productTotal').length
+            for (let i = 0; i < length; i++) {
+                document.getElementsByName('productTotal')[i].innerText = Number(document.getElementsByName('num-product')[i].value) * Number(document.getElementsByName('productprice')[i].value)
+                subTotal = subTotal + Number(document.getElementsByName('productTotal')[i].innerText)
+                datas.push({
+                    id: document.getElementsByName('productId')[i].value,
+                    quantity: Number(document.getElementsByName('num-product')[i].value)
+
+                })
+
+            }
+
+            document.getElementById('subtotal').innerText = "Rs. " + subTotal
+
+            let data = await fetch('/cartoperation', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    datas
+                })
+            })
+            let Data = await data.json()
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+    {{> userfooter}}

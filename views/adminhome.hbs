@@ -1,0 +1,354 @@
+{{>adminheader}}
+
+
+<style>
+  body {
+    background-color: rgb(247, 248, 250);
+  }
+
+  .orders {
+    font-size: 2rem;
+    font-weight: bold;
+    animation: count-up-animation 5s ease-out forwards;
+  }
+
+  @keyframes count-up-animation {
+    from {
+      content: "0";
+    }
+
+    to {
+      content: attr(data-count);
+    }
+  }
+
+  .userdetails {
+    border: transparent;
+    background-color:  rgb(247, 248, 250);
+  }
+  .card{
+    box-shadow: 2px 2px 3px 3px rgba(239, 239, 239, 0.888);
+  }
+  .cardbody{
+    box-shadow: none;
+  }
+</style>
+
+
+
+
+
+<div class=" container p-3" style="display: flex; flex-direction: row-reverse;">
+  <div class="btn-group contact mb-3">
+
+
+    <div><button class="btn btn-primary " onclick="window.location.href='/admin/report'">Print report</button></div>
+  </div>
+</div>
+
+<div class="container w-100 mt-3">
+
+  <div class="row d-flex">
+
+    <div class=" col-md-5 col-lg-5 col-12 d-flex flex-column">
+      <div class="d-flex flex-column">
+        <div class="card ">
+          <div class="card-header">
+            <strong>orders</strong>
+            <span class="small ms-1">Line</span>
+          </div>
+          <div class="card-body">
+            {{!-- Example block --}}
+
+            <div class="c-chart-wrapper">
+              <canvas id="mychart"></canvas>
+
+              {{!-- <canvas id="canvas-1"></canvas> --}}
+            </div>
+
+
+          </div>
+
+
+        </div>
+        <div class="d-flex justify-content-between  ">
+          <div class="row col-md-6 mt-2" style="text-align: center;">
+            <div class="card">
+              <div class="card-header">
+                <strong>Revenue</strong>
+                <span class="small ms-1"></span>
+              </div>
+              <div class="card-body">
+                <h3>₹<span style="color: rgb(111, 165, 245);">{{totalbill}}</span></h3>
+                <div class="c-chart-wrapper">
+                  {{!-- <canvas id="canvas-1"></canvas> --}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row col-md-6 mt-2">
+            <div class="card ">
+              <div class="card-header" style="text-align: center;" >
+                <strong>Orders</strong>
+                <span class="small ms-1"> <i class="fa fa-trash"></i></span>
+              </div>
+              <div class="card-body" style="text-align: center;">
+                <div>
+                  <h3 class="orders" data-count="100">{{totalorders}}</h3>
+                </div>
+                {{!-- Example block --}}
+                <div class="c-chart-wrapper">
+                  {{!-- <canvas id="canvas-1"></canvas> --}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col col-lg-7 col-md-7 col-12 " >
+      <div class="card h-100">
+        <div class="card-header">
+          <strong>Monthly Revenue</strong>
+          <span class="small ms-1"></span>
+        </div>
+        <div class="card-body py-5">
+          {{!-- Example block --}}
+
+          <div class="c-chart-wrapper">
+            <canvas id="mychart1"></canvas>
+            {{!-- <canvas id="canvas-2"></canvas> --}}
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="d-flex ">
+      <div class="col-md-5 col-md-5 mt-4">
+        <div class="card   mb-4">
+          <div class="card-header ">
+            <strong>Payment Method</strong>
+            <span class="small ms-1"></span>
+          </div>
+          <div class="card-body">
+            {{!-- Example block --}}
+
+            <div class="c-chart-wrapper ">
+              <canvas id="mychart2"></canvas>
+              {{!-- <canvas id="canvas-3"></canvas> --}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 mx-2 mt-4">
+        <div class="card ">
+          <div class="card-header ">
+            <strong>Category</strong>
+            <span class="small ms-1 "></span>
+          </div>
+          <div class="card-body">
+            {{!-- Example block --}}
+            <div class="c-chart-wrapper">
+              <canvas id="mychart3"></canvas>
+              {{!-- <canvas id="canvas-3"></canvas> --}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 card cardbody userdetails">
+        <div class="card   mt-4">
+          <div class="card-header">
+            <strong>Total Users</strong>
+            <span class="small ms-1"></span>
+          </div>
+          <div class="card-body " style="text-align: center;">
+            <h3><span style="color: rgb(111, 165, 245);">{{usercount}}</span></h3>
+            <div class="c-chart-wrapper">
+              {{!-- <canvas id="canvas-1"></canvas> --}}
+            </div>
+          </div>
+        </div>
+        <div class="card  mt-3">
+          <div class="card-header">
+            <strong>Products</strong>
+            <span class="small ms-1"></span>
+          </div>
+          <div class="card-body " style="text-align: center;">
+            <h3><span style="color: rgb(111, 165, 245);">{{productcount}}</span></h3>
+            <div class="c-chart-wrapper">
+              {{!-- <canvas id="canvas-1"></canvas> --}}
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header">
+            <strong>Revenue</strong>
+            <span class="small ms-1"></span>
+          </div>
+          <div class="card-body "style="text-align: center;">
+            <h3><span style="color: rgb(111, 165, 245);">{{totalbill}}</span></h3>
+            <div class="c-chart-wrapper">
+              {{!-- <canvas id="canvas-1"></canvas> --}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+<div class="col">
+  <div class="card mb-4">
+    <div class="card-header">
+      <strong>
+    </div>
+  </div>
+</div>
+
+</div>
+<input type="hidden" id="aaaa" value="{{orders}}">
+
+
+
+<!-- Template Main JS File -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+
+
+
+<script>
+  const ordercount = {{{ json orders }}}
+  const monthName = {{{ json monthNames }}}
+  const ctx = document.getElementById('mychart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: monthName,
+      datasets: [{
+        label: '# of Votes',
+        data: ordercount,
+        borderWidth: 1,
+        backgroundColor: '#3398fe', // blue color with alpha value
+        borderColor: 'rgba(54, 162, 235, 1)', // blue color without alpha value
+        pointBackgroundColor: 'rgba(54, 162, 235, 1)', // blue color for data points
+        pointBorderColor: '#fff', // color for data point borders
+        pointHoverBackgroundColor: 'rgba(54, 162, 235, 1)', // color for data points on hover
+        pointHoverBorderColor: 'rgba(54, 162, 235, 1)', // color for data point borders on hover
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+<script>
+  const monthlybill = {{{ json monthlybill }}}
+
+  console.log(ordercount)
+  const mychart1 = document.getElementById('mychart1');
+
+  new Chart(mychart1, {
+    type: 'bar',
+    data: {
+      labels: monthName,
+      datasets: [{
+        label: '# of Votes',
+        data: monthlybill,
+        borderWidth: 1,
+        backgroundColor: '#3398fe', // blue color with alpha value
+        borderColor: 'rgba(54, 162, 235, 1)', // blue color without alpha value
+        pointBackgroundColor: 'rgba(54, 162, 235, 1)', // blue color for data points
+        pointBorderColor: '#fff', // color for data point borders
+        pointHoverBackgroundColor: '#fff', // color for data points on hover
+        pointHoverBorderColor: 'rgba(54, 162, 235, 1)', // color for data point borders on hover
+        borderWidth: 0
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        x: {
+          barThickness: 10 // set the width of the bars in pixels
+        }
+      }
+    }
+
+  });
+</script>
+
+<script>
+  const codcount = {{{ json  codcount }}}
+  const razorpaycount = {{{ json  razorpaycount }}}
+  const paymentdata = {{{ json  paymentdata }}}
+  const mychart2 = document.getElementById('mychart2');
+  console.log('doughnut')
+  new Chart(mychart2, {
+    type: 'doughnut',
+    data: {
+      labels: [
+        'Razorpay',
+        'cod',
+        'Yellow'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: paymentdata,
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    }
+
+  });
+</script>
+
+
+<script>
+  const categories = {{{ json categories }}}
+  const categorycount = {{{ json categorycount }}}
+  const mychart3 = document.getElementById('mychart3');
+  console.log('doughnut')
+  new Chart(mychart3, {
+    type: 'doughnut',
+    data: {
+      labels: categories,
+      datasets: [{
+        label: 'My First Dataset',
+        data: categorycount,
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    }
+
+  });
+</script>
+
+
+
+
+
+
+{{>adminfooter}}

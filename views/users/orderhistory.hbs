@@ -1,0 +1,930 @@
+{{#if data}}
+{{> userheaderafter}}
+{{else}}
+{{> userheader}}
+{{/if}}
+
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+
+	}
+
+	h1 {
+		font-size: 36px;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	table th,
+	table td {
+		padding: 8px;
+		text-align: left;
+	}
+
+	table th {
+		background-color: #ccc;
+	}
+
+	table tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+
+	table a {
+		color: #007bff;
+		text-decoration: none;
+	}
+
+	table a:hover {
+		text-decoration: underline;
+	}
+
+
+	a {
+		text-decoration: none !important
+	}
+
+	.card-product-list,
+	.card-product-grid {
+		margin-bottom: 0
+	}
+
+	.card {
+		width: 500px;
+		position: relative;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: none;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		min-width: 0;
+		word-wrap: break-word;
+		background-color: #fff;
+		background-clip: border-box;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 23px;
+		margin-top: 50px;
+		left: 8rem;
+	}
+
+	.card-product-grid:hover {
+		-webkit-box-shadow: 0 4px 15px rgba(153, 153, 153, 0.3);
+		box-shadow: 0 4px 15px rgba(153, 153, 153, 0.3);
+		-webkit-transition: .3s;
+		transition: .3s
+	}
+
+	.card-product-grid .img-wrap {
+		border-radius: 0.2rem 0.2rem 0 0;
+		height: 220px
+	}
+
+	.card .img-wrap {
+		overflow: hidden
+	}
+
+	.card-lg .img-wrap {
+		height: 280px
+	}
+
+	.card-product-grid .img-wrap {
+		border-radius: 0.2rem 0.2rem 0 0;
+		height: 275px;
+		padding: 16px
+	}
+
+	[class*='card-product'] .img-wrap img {
+		height: 100%;
+		max-width: 100%;
+		width: auto;
+		display: inline-block;
+		-o-object-fit: cover;
+		object-fit: cover
+	}
+
+	.img-wrap {
+		text-align: center;
+		display: block
+	}
+
+	.card-product-grid .info-wrap {
+		overflow: hidden;
+		padding: 18px 20px
+	}
+
+	[class*='card-product'] a.title {
+		color: #212529;
+		display: block
+	}
+
+	.rating-stars {
+		display: inline-block;
+		vertical-align: middle;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		white-space: nowrap;
+		clear: both
+	}
+
+	.rating-stars li.stars-active {
+		z-index: 2;
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden
+	}
+
+	.rating-stars li {
+		display: block;
+		text-overflow: clip;
+		white-space: nowrap;
+		z-index: 1
+	}
+
+	.card-product-grid .bottom-wrap {
+		padding: 18px;
+		border-top: 1px solid #e4e4e4
+	}
+
+	.bottom-wrap-payment {
+		padding: 0px;
+		border-top: 1px solid #e4e4e4
+	}
+
+	.rated {
+		font-size: 10px;
+		color: #b3b4b6
+	}
+
+	.btn {
+		display: inline-block;
+		font-weight: 600;
+		color: #343a40;
+		text-align: center;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-color: transparent;
+		border: 1px solid transparent;
+		padding: 0.45rem 0.85rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		border-radius: 0.2rem
+	}
+
+	.btn-primary {
+		color: #fff;
+		background-color: #3167eb;
+		border-color: #3167eb
+	}
+
+	.fa {
+		color: #FF5722
+	}
+
+	#aaaa {
+		display: none;
+	}
+
+	.close {
+		position: absolute;
+		top: 1rem;
+		left: 29rem;
+		color: red;
+	}
+
+	.first {
+		justify-self: start;
+	}
+
+	.second {
+		justify-self: center;
+		position: absolute;
+		z-index: 1;
+	}
+
+	.orderHead {
+		position: relative;
+	}	
+	.navv{
+		position: sticky;
+	}
+</style>
+
+
+<link rel="stylesheet" href="/css/pagination.css" type="text/css">
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark navv ">
+  <a class="navbar-brand text-light" href="/orderhistory">All</a>
+  <a class="navbar-brand text-light" onclick="pending()">Pending</a>
+  <a class="navbar-brand text-light" onclick="shipping()">Cancel</a>
+  <a class="navbar-brand text-light" onclick="orderreturn()">Return</a>
+  <a class="navbar-brand text-light" onclick="delivered()">Delivered</a>
+  {{!-- <a class="navbar-brand text-light" onclick="packing()">Packing</a> --}}
+
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+   
+  </div>
+</nav>
+
+
+
+<section class="header container-fluid">
+            <div class="items-controller">
+                <h5>Show</h5>
+                <select name="" id="itemperpage">
+                    <option value="04">03</option>
+                    <option value="06">05</option>
+                    <option value="09" selected>08</option>
+                    <option value="11">10</option>
+                    <option value="16">15</option>
+                </select>
+                <h5>Per Page</h5>
+            </div>
+            <strong class="  text-align-center d-flex justify-content-center align-items-center"><span>Order
+				History</span></strong>
+            <div class="search">
+                <h5>Search</h5>
+                <input type="text" name="" id="search" placeholder="search">
+            </div>
+        </section>
+
+
+<div class=" container col-md-5 col-lg-5 py-2 " >
+	<div id="myDiv" >
+
+		<table id="fulltab">
+			<tr>
+				<th>Sl No</th>
+				<th>Order ID</th>
+				<th>Order Date</th>
+				<th>Order Status</th>
+				<th>Shipping Address</th>
+				<th>Payment Method</th>
+				<th>Order Total</th>
+				<th>Order details</th>
+				<th>Tracking Information</th>
+
+			</tr>
+			<div class="data-container" >
+				{{#each orderdata}}
+
+				<tr>
+          <td id="date">{{inc @index}}</td>
+					<td id="c1">{{this._id}}</td>
+					<td id="date">{{formatDate this.orderdate "DD-MM-YYY "}}
+					</td>
+
+
+					<td id="c2">{{this.orderstatus}}</td>
+					<td id="c3">{{this.address.name}},{{this.address.mobile}}
+						{{this.address.locality}},{{this.address.address}}</td>
+					<td id="c4">
+						{{this.paymentmode}}
+					</td>
+					<td id="c5">{{this.totalbill}}</td>
+					<td id="c6"> <button id="button1" onclick="window.location.href='/orderdetails?id={{this._id}}'"
+							class="cart-btn btn btn-warning"><span class="icon_bag_alt"></span></td>
+					<td id="c7">N/A</td>
+				</tr>
+				{{/each}}
+			</div>
+
+		</table>
+
+      <div class="bottom-field">
+                <ul class="pagination">
+                  <li class="prev"><a href="#" id="prev">&#139;</a></li>
+                    <!-- page number here -->
+                  <li class="next"><a href="#" id="next">&#155;</a></li>
+                </ul>
+            </div>
+	</div>
+
+</div>
+
+<script>
+
+
+ let tbody = document.querySelector("tbody");
+		let pageUl = document.querySelector(".pagination");
+	let itemShow = document.querySelector("#itemperpage");
+		let tr = tbody.querySelectorAll("tr");
+		let emptyBox = [];
+		let index = 1;
+		let itemPerPage = 8;
+
+		for(let i=0; i<tr.length; i++){ emptyBox.push(tr[i]);}
+
+		itemShow.onchange = giveTrPerPage;
+		function giveTrPerPage(){
+			itemPerPage = Number(this.value);
+			// console.log(itemPerPage);
+			displayPage(itemPerPage);
+			pageGenerator(itemPerPage);
+			getpagElement(itemPerPage);
+		}
+
+		function displayPage(limit){
+			tbody.innerHTML = '';
+			for(let i=0; i<limit; i++){
+				tbody.appendChild(emptyBox[i]);
+			}
+			const  pageNum = pageUl.querySelectorAll('.list');
+			pageNum.forEach(n => n.remove());
+		}
+		displayPage(itemPerPage);
+
+		function pageGenerator(getem){
+			const num_of_tr = emptyBox.length;
+			if(num_of_tr <= getem){
+				pageUl.style.display = 'none';
+			}else{
+				pageUl.style.display = 'flex';
+				const num_Of_Page = Math.ceil(num_of_tr/getem);
+				for(i=1; i<=num_Of_Page; i++){
+					const li = document.createElement('li'); li.className = 'list';
+					const a =document.createElement('a'); a.href = '#'; a.innerText = i;
+					a.setAttribute('data-page', i);
+					li.appendChild(a);
+					pageUl.insertBefore(li,pageUl.querySelector('.next'));
+				}
+			}
+		}
+		pageGenerator(itemPerPage);
+		let pageLink = pageUl.querySelectorAll("a");
+		let lastPage =  pageLink.length - 2;
+		
+		function pageRunner(page, items, lastPage, active){
+			for(button of page){
+				button.onclick = e=>{
+					const page_num = e.target.getAttribute('data-page');
+					const page_mover = e.target.getAttribute('id');
+					if(page_num != null){
+						index = page_num;
+
+					}else{
+						if(page_mover === "next"){
+							index++;
+							if(index >= lastPage){
+								index = lastPage;
+							}
+						}else{
+							index--;
+							if(index <= 1){
+								index = 1;
+							}
+						}
+					}
+					pageMaker(index, items, active);
+				}
+			}
+
+		}
+		var pageLi = pageUl.querySelectorAll('.list'); pageLi[0].classList.add("active");
+		pageRunner(pageLink, itemPerPage, lastPage, pageLi);
+
+		function getpagElement(val){
+			let pagelink = pageUl.querySelectorAll("a");
+			let lastpage =  pagelink.length - 2;
+			let pageli = pageUl.querySelectorAll('.list');
+			pageli[0].classList.add("active");
+			pageRunner(pagelink, val, lastpage, pageli);
+			
+		}
+	
+		
+		
+		function pageMaker(index, item_per_page, activePage){
+			const start = item_per_page * index;
+			const end  = start + item_per_page;
+			const current_page =  emptyBox.slice((start - item_per_page), (end-item_per_page));
+			tbody.innerHTML = "";
+			for(let j=0; j<current_page.length; j++){
+				let item = current_page[j];					
+				tbody.appendChild(item);
+			}
+			Array.from(activePage).forEach((e)=>{e.classList.remove("active");});
+     		activePage[index-1].classList.add("active");
+		}
+
+
+
+
+
+		// search content 
+		{{!-- var search = document.getElementById("search");
+		search.onkeyup = e=>{
+			const text = e.target.value;
+			for(let i=0; i<tr.length; i++){
+				const matchText = tr[i].querySelectorAll("td")[2].innerText;
+				if(matchText.toLowerCase().indexOf(text.toLowerCase()) > -1){
+					tr[i].style.visibility = "visible";
+				}else{
+					tr[i].style.visibility= "collapse";
+				}
+			}
+		} --}}
+
+    const search = document.getElementById("search");
+
+search.addEventListener("input", () => {
+  const searchTerm = search.value.trim().toLowerCase();
+
+  Array.from(document.querySelectorAll("tbody tr")).forEach(row => {
+    const [_, __, nameCell] = row.cells;
+    const name = nameCell.textContent.trim().toLowerCase();
+    const isVisible = name.includes(searchTerm);
+    row.style.display = isVisible ? "" : "none";
+  });
+});
+
+</script>
+
+
+
+
+
+<script>
+async function pending(){
+  const response = await fetch("/orderpending", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const data = await response.json()
+const fulltab=document.getElementById('fulltab')
+const rated=document.querySelector('.rated')
+fulltab.classList.add('table-striped')
+fulltab.innerHTML=''
+
+const oldTable = document.querySelector('.data-container table');
+  if (oldTable) {
+    oldTable.remove();
+  }
+ fulltab.innerHTML += `	<tr>
+				<th>Order ID</th>
+				<th>Order Date</th>
+				<th>Order Status</th>
+				<th>Shipping Address</th>
+				<th>Payment Method</th>
+				<th>Order Total</th>
+				<th>Order details</th>
+				<th>Tracking Information</th>
+
+			</tr>
+
+			<div class="data-container" >`
+
+    data.orderdata.forEach((order) => {
+      document.getElementById("fulltab").innerHTML += `
+        <tr>
+            <td id="c1">${order._id}</td>
+            <td id="date">${order.orderdate}</td>
+            <td id="c2">${order.orderstatus}</td>
+            <td id="c3">${order.address.name}, ${order.address.mobile}, ${order.address.locality}, ${order.address.address}</td>
+            <td id="c4">${order.paymentmode}</td>
+            <td id="c5">${order.totalbill}</td>
+            <td id="c6">
+                <button id="button1" onclick="window.location.href='/orderdetails?id=${order._id}'" class="cart-btn btn btn-warning">
+                    <span class="icon_bag_alt"></span>
+                </button>
+            </td>
+            <td id="c7">N/A</td>
+        </tr>
+    `;
+    });
+}
+
+
+</script>
+<script>
+async function shipping(){
+  console.log('from fetchhhhhhh')
+  const response = await fetch("/ordercancel", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const data = await response.json()
+fulltab.innerHTML=''
+const oldTable = document.querySelector('.data-container table');
+  if (oldTable) {
+    oldTable.remove();
+  }
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-striped');
+
+  // Create the table header
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
+  const th1 = document.createElement('th');
+  th1.setAttribute('scope', 'col');
+  th1.innerHTML = 'Order ID';
+  headerRow.appendChild(th1);
+
+  const th2 = document.createElement('th');
+  th2.setAttribute('scope', 'col');
+  th2.innerHTML = 'Order Status';
+  headerRow.appendChild(th2);
+
+  const th3 = document.createElement('th');
+  th3.setAttribute('scope', 'col');
+  th3.innerHTML = 'Address';
+  headerRow.appendChild(th3);
+
+  const th4 = document.createElement('th');
+  th4.setAttribute('scope', 'col');
+  th4.innerHTML = 'Payment Mode';
+  headerRow.appendChild(th4);
+
+  const th5 = document.createElement('th');
+  th5.setAttribute('scope', 'col');
+  th5.innerHTML = 'Total Bill';
+  headerRow.appendChild(th5);
+
+  const th6 = document.createElement('th');
+  th6.setAttribute('scope', 'col');
+  th6.innerHTML = 'Order ID (2)';
+  headerRow.appendChild(th6);
+
+   const th7 = document.createElement('th');
+  th6.setAttribute('scope', 'col');
+  th6.innerHTML = 'Order ID (2)';
+  headerRow.appendChild(th7);
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // Create the table body
+  const tbody = document.createElement('tbody');
+  data.orderdata.forEach((order)=>{
+    const row = document.createElement('tr');
+
+    const col1 = document.createElement('td');
+    col1.innerHTML = order._id;
+    row.appendChild(col1);
+
+    const col2 = document.createElement('td');
+    col2.innerHTML = order.orderstatus;
+    row.appendChild(col2);
+
+    const col3 = document.createElement('td');
+    col3.innerHTML = order.address.name + ", " + order.address.mobile + ", " + order.address.locality + ", " + order.address.address;
+    row.appendChild(col3);
+
+    const col4 = document.createElement('td');
+    col4.innerHTML = order.paymentmode;
+    row.appendChild(col4);
+
+    const col5 = document.createElement('td');
+    col5.innerHTML = order.totalbill;
+    row.appendChild(col5);
+
+    const col6 = document.createElement('td');
+    col6.innerHTML = order._id;
+    row.appendChild(col6);
+
+	    const col7 = document.createElement('td');
+    col7.innerHTML = `<button id="button1" onclick="window.location.href='/orderdetails?id=${order._id}'"
+							class="cart-btn btn btn-warning"><span class="icon_bag_alt"></span>`
+    row.appendChild(col7);
+
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+
+  const dataContainer = document.querySelector('.data-container');
+  dataContainer.appendChild(table);
+}
+
+
+</script>
+<script>
+async function delivered(){
+  console.log('from fetchhhhhhh')
+  const response = await fetch("/orderdelivered", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const data = await response.json()
+fulltab.innerHTML=''
+const oldTable = document.querySelector('.data-container table');
+  if (oldTable) {
+    oldTable.remove();
+  }
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-striped');
+
+  // Create the table header
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
+  const th1 = document.createElement('th');
+  th1.setAttribute('scope', 'col');
+  th1.innerHTML = 'Order ID';
+  headerRow.appendChild(th1);
+
+  const th2 = document.createElement('th');
+  th2.setAttribute('scope', 'col');
+  th2.innerHTML = 'Order Status';
+  headerRow.appendChild(th2);
+
+  const th3 = document.createElement('th');
+  th3.setAttribute('scope', 'col');
+  th3.innerHTML = 'Address';
+  headerRow.appendChild(th3);
+
+  const th4 = document.createElement('th');
+  th4.setAttribute('scope', 'col');
+  th4.innerHTML = 'Payment Mode';
+  headerRow.appendChild(th4);
+
+  const th5 = document.createElement('th');
+  th5.setAttribute('scope', 'col');
+  th5.innerHTML = 'Total Bill';
+  headerRow.appendChild(th5);
+
+  const th6 = document.createElement('th');
+  th6.setAttribute('scope', 'col');
+  th6.innerHTML = 'Order ID (2)';
+  headerRow.appendChild(th6);
+
+   const th7 = document.createElement('th');
+  th6.setAttribute('scope', 'col');
+  th6.innerHTML = 'Order ID (2)';
+  headerRow.appendChild(th7);
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // Create the table body
+  const tbody = document.createElement('tbody');
+  data.orderdata.forEach((order)=>{
+    const row = document.createElement('tr');
+
+    const col1 = document.createElement('td');
+    col1.innerHTML = order._id;
+    row.appendChild(col1);
+
+    const col2 = document.createElement('td');
+    col2.innerHTML = order.orderstatus;
+    row.appendChild(col2);
+
+    const col3 = document.createElement('td');
+    col3.innerHTML = order.address.name + ", " + order.address.mobile + ", " + order.address.locality + ", " + order.address.address;
+    row.appendChild(col3);
+
+    const col4 = document.createElement('td');
+    col4.innerHTML = order.paymentmode;
+    row.appendChild(col4);
+
+    const col5 = document.createElement('td');
+    col5.innerHTML = order.totalbill;
+    row.appendChild(col5);
+
+    const col6 = document.createElement('td');
+    col6.innerHTML = order._id;
+    row.appendChild(col6);
+
+	    const col7 = document.createElement('td');
+    col7.innerHTML = `<button id="button1" onclick="window.location.href='/orderdetails?id=${order._id}'"
+							class="cart-btn btn btn-warning"><span class="icon_bag_alt"></span>`
+    row.appendChild(col7);
+
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+
+  const dataContainer = document.querySelector('.data-container');
+  dataContainer.appendChild(table);
+}
+
+
+</script>
+<script>
+async function packing(){
+  console.log('from fetchhhhhhh')
+  const response = await fetch("/orderpacking", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const data = await response.json()
+fulltab.innerHTML=''
+const oldTable = document.querySelector('.data-container table');
+  if (oldTable) {
+    oldTable.remove();
+  }
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-striped');
+
+  // Create the table header
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
+  const th1 = document.createElement('th');
+  th1.setAttribute('scope', 'col');
+  th1.innerHTML = 'Order ID';
+  headerRow.appendChild(th1);
+
+  const th2 = document.createElement('th');
+  th2.setAttribute('scope', 'col');
+  th2.innerHTML = 'Order Status';
+  headerRow.appendChild(th2);
+
+  const th3 = document.createElement('th');
+  th3.setAttribute('scope', 'col');
+  th3.innerHTML = 'Address';
+  headerRow.appendChild(th3);
+
+  const th4 = document.createElement('th');
+  th4.setAttribute('scope', 'col');
+  th4.innerHTML = 'Payment Mode';
+  headerRow.appendChild(th4);
+
+  const th5 = document.createElement('th');
+  th5.setAttribute('scope', 'col');
+  th5.innerHTML = 'Total Bill';
+  headerRow.appendChild(th5);
+
+  const th6 = document.createElement('th');
+  th6.setAttribute('scope', 'col');
+  th6.innerHTML = 'Order ID (2)';
+  headerRow.appendChild(th6);
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // Create the table body
+  const tbody = document.createElement('tbody');
+  data.orderdata.forEach((order)=>{
+    const row = document.createElement('tr');
+
+    const col1 = document.createElement('td');
+    col1.innerHTML = order._id;
+    row.appendChild(col1);
+
+    const col2 = document.createElement('td');
+    col2.innerHTML = order.orderstatus;
+    row.appendChild(col2);
+
+    const col3 = document.createElement('td');
+    col3.innerHTML = order.address.name + ", " + order.address.mobile + ", " + order.address.locality + ", " + order.address.address;
+    row.appendChild(col3);
+
+    const col4 = document.createElement('td');
+    col4.innerHTML = order.paymentmode;
+    row.appendChild(col4);
+
+    const col5 = document.createElement('td');
+    col5.innerHTML = order.totalbill;
+    row.appendChild(col5);
+
+    const col6 = document.createElement('td');
+    col6.innerHTML = order._id;
+    row.appendChild(col6);
+
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+
+  const dataContainer = document.querySelector('.data-container');
+  dataContainer.appendChild(table);
+}
+
+
+</script>
+<script>
+async function orderreturn(){
+  console.log('from fetchhhhhhh')
+  const response = await fetch("/orderreturn", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const data = await response.json()
+fulltab.innerHTML=''
+const oldTable = document.querySelector('.data-container table');
+  if (oldTable) {
+    oldTable.remove();
+  }
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-striped');
+
+  // Create the table header
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
+  const th1 = document.createElement('th');
+  th1.setAttribute('scope', 'col');
+  th1.innerHTML = 'Order ID';
+  headerRow.appendChild(th1);
+
+  const th2 = document.createElement('th');
+  th2.setAttribute('scope', 'col');
+  th2.innerHTML = 'Order Status';
+  headerRow.appendChild(th2);
+
+  const th3 = document.createElement('th');
+  th3.setAttribute('scope', 'col');
+  th3.innerHTML = 'Address';
+  headerRow.appendChild(th3);
+
+  const th4 = document.createElement('th');
+  th4.setAttribute('scope', 'col');
+  th4.innerHTML = 'Payment Mode';
+  headerRow.appendChild(th4);
+
+  const th5 = document.createElement('th');
+  th5.setAttribute('scope', 'col');
+  th5.innerHTML = 'Total Bill';
+  headerRow.appendChild(th5);
+
+  const th6 = document.createElement('th');
+  th6.setAttribute('scope', 'col');
+  th6.innerHTML = 'Order ID (2)';
+  headerRow.appendChild(th6);
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // Create the table body
+  const tbody = document.createElement('tbody');
+  data.orderdata.forEach((order)=>{
+    const row = document.createElement('tr');
+
+    const col1 = document.createElement('td');
+    col1.innerHTML = order._id;
+    row.appendChild(col1);
+
+    const col2 = document.createElement('td');
+    col2.innerHTML = order.orderstatus;
+    row.appendChild(col2);
+
+    const col3 = document.createElement('td');
+    col3.innerHTML = order.address.name + ", " + order.address.mobile + ", " + order.address.locality + ", " + order.address.address;
+    row.appendChild(col3);
+
+    const col4 = document.createElement('td');
+    col4.innerHTML = order.paymentmode;
+    row.appendChild(col4);
+
+    const col5 = document.createElement('td');
+    col5.innerHTML = order.totalbill;
+    row.appendChild(col5);
+
+    const col6 = document.createElement('td');
+    col6.innerHTML = order._id;
+    row.appendChild(col6);
+
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+
+  const cells = table.querySelectorAll('td[data-color]');
+
+
+  const dataContainer = document.querySelector('.data-container');
+  dataContainer.appendChild(table);
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+{{> userfooter}}

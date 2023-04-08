@@ -1,0 +1,140 @@
+{{> userheader}}
+
+<style>
+    body {
+        background: #ffffff;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8;
+    }
+
+    .profile-button {
+        background: #BA68C8;
+        box-shadow: none;
+        border: none;
+    }
+
+    .profile-button:hover {
+        background: #682773;
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none;
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none;
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer;
+    }
+
+    .border-right {
+        padding-top: 5rem;
+    }
+
+    .btnb {
+        display: none;
+    }
+
+    .list-group-item:hover .btnb {
+        display: block;
+    }
+
+    .head {
+        display: flex;
+    }
+
+    h4 {
+        font-weight: 500;
+    }
+
+    p {
+        font-weight: 500;
+
+    }
+</style>
+
+
+
+<div class="container rounded bg-white mt-5">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 border-right">
+            <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><a href="#">Profile</a></h6>
+
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><a href="#">Addresses</a> </h6>
+
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><a href="#">My Orders</a></h6>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-instagram mr-2 icon-inline text-danger">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>Instagram</h6>
+
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-facebook mr-2 icon-inline text-primary">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>Facebook</h6>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-md-9 col-lg-8 address ">
+            <div class="head">
+                <h3>Manage Addresses</h3>&nbsp;&nbsp;<button class="btn btn-primary profile-button add" type="submit"
+                    onclick="window.location.href='/loadaddress?id={{id}}'">Add Address</button>
+            </div>
+            {{#each userdata}}
+            <div class="card mt-3">
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <div>
+                            <h4>{{name}}</h4>
+                            <p>{{mobile}},{{address}}</p>
+                            <p>{{locality}}, {{city}}, {{state}} <span>{{pincode}}</span></p>
+                            <p>{{landmark}},{{alternatenumber}}</p>
+
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary profile-button btnb mr-2" type="submit">Delete</button>
+                            <button class="btn btn-primary profile-button btnb "
+                                onclick="window.location.href='/editaddress?id={{id}}'">edit</button>
+                        </div>
+
+
+                    </li>
+                </ul>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+
+
+{{> userfooter}}
