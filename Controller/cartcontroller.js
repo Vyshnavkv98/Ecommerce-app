@@ -744,13 +744,14 @@ const editcoupon = async (req, res) => {
       $set: {
         code: req.body.code,
         discount: req.body.discount,
-        expiresAt: req.body.expiresAt,
+        expiresAt: req.body.expiresAt.shift(),
         status: req.body.status,
         minbill: req.body.minbill
 
       }
-    })
-    res.render('coupons', { coupondata })
+    },{new:true})
+    const coupondatas = await coupon.find()
+    res.render('coupons', { coupondata: coupondatas })
 
   } catch (error) {
     console.log(error.message);

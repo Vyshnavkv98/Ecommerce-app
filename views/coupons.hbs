@@ -47,7 +47,7 @@
       line-height: 1rem;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 10px 10px 10px 10px rgba(179, 177, 177, 0.385);
+      box-shadow: 10px 10px 10px 10px rgba(198, 197, 197, 0.385);
     }
 
     .coupon-code {
@@ -89,7 +89,7 @@
 
     .coupon .kanan {
       border-left: 1px dashed #ddd;
-      width: 40% !important;
+      width: 100% ;
       position: relative;
     }
 
@@ -129,34 +129,15 @@
 
 
 
-      <div class="col-md-3 col-lg-3"></div>
-      <div class="col-md-6 col-lg-6">
+      <div class="col-md-2 col-lg-2"></div>
+      <div class="col-md-8 col-lg-8">
 
 
-
-        {{!-- <div class="coupon-list">
-          {{#each coupondata}}
-          <div class="coupon-card">
-            <div class="coupon-code">{{this.code}}</div>
-            <div class="coupon-discount">{{this.discount}}</div>
-            <div class="coupon-expiration">{{this.expiresAt}}</div>
-            <div class="coupon-actions">
-              <button class="coupon-action"
-                onclick="window.location.href='/admin/editcoupon?id={{this._id}}'">Edit</button>
-              <button class="coupon-action"
-                onclick="window.location.href='/admin/deletecoupons?id={{this._id}}'">Delete</button>
-            </div>
-          </div><br><br>
-
-          {{/each}}
-          &nbsp;<button class="coupon-action" onclick="window.location.href='/admin/loadaddcoupon'"
-            style="color: rgb(159, 215, 39); background-color: rgb(0, 0, 0);">Add Coupon</button>
-        </div> --}}
 
 
         {{#each coupondata}}
         
-        <div class="coupon bg-white border rounded  d-flex gap-4 justify-content-between">
+        <div class="coupon bg-white border rounded w-100  d-flex gap-4 justify-content-between">
 
           <div class="kiri p-3 d-flex">
             <div class="icon-container">
@@ -174,10 +155,10 @@
               <h5 class="text-muted mb-0">{{this.discount}}%</h5>
             </div>
           </div>
-          <div class="kanan">
+          <div class="kanan w-100">
             <div class="info m-3 d-flex align-items-center">
               <div class="w-100">
-                <div class="block">
+                <div class="block w-100">
                   <span class="time font-weight-light">
                     <span>19 days</span>
                   </span>
