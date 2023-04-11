@@ -771,7 +771,7 @@ const editstatus = async (req, res) => {
     console.log(status);
     console.log(id);
     const orderdata = await order.findOne({ _id: id })
-    console.log(orderdata);
+    console.log(orderdata); 
 
     await order.findOneAndUpdate(
 
