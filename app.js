@@ -20,7 +20,7 @@ mongoose()
 
 
 const hbs=require('hbs');
-hbs.registerPartials(__dirname + '/views/partial');
+hbs.registerPartials(__dirname + '/views');
 const nocache = require('nocache');
 
 // view engine setup
