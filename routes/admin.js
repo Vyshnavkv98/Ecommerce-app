@@ -48,7 +48,7 @@ router.use(session({secret:process.env.sessionsecret,resave:true,saveUninitializ
 router.get('/',adminauth.isLogout,adminController.adminloadlogin)
  router.post('/',adminController.verifyadmin)
 
- router.get('/home',adminController.adminhome)
+ router.get('/home',adminauth.isLogout,adminController.adminhome)
  
  router.get('/logout',adminauth.isLogin,adminController.adminlogout)
 // router.post('/adminsignup',adminController.adminsignup)
