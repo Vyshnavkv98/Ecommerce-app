@@ -167,7 +167,7 @@ const updatecart = async (req, res) => {
     const productdata = User.cart.product
 
     const addressdata = User.address
-    const walletamount = User.wallet.balance
+    const walletamount = User.wallet?.balance
 
 
 
@@ -371,6 +371,7 @@ const loadpayment = async (req, res) => {
   try {
 
     const userid = req.session.userdata._id
+    console.log(userid,'userAIOddsdsaf sdfasdf');
     const userdata = await user.findById(userid)
     const addressid = req.body.address
     const walletapplied=req.body.walletapplied
@@ -517,7 +518,7 @@ const postorder = async (req, res) => {
       receipt: "rcp1"
     };
     instance.orders.create(options, function (err, order) {
-
+   console.log(err.message,'ordererrererere');
       res.send({ orderId: order.id })
     });
 
