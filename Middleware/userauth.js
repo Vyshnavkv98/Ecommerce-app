@@ -5,24 +5,24 @@ const isLogin=async(req,res,next)=>{
     //    if(req.session.userdata) {
     //         next()
     //    } else {
-    //     res.redirect('/')
+    //   return res.redirect('/')
     //    } 
     // } catch (error) {
-    //     console.log(error.message);
+    //     console.log(error);
     // }
     next()
 }
 
 const isLogout=async(req,res,next)=>{
-    try {
-        // if(req.session.userdata){
-        //     res.redirect('/home')
-        // }else{}
+    // try {
+    //     if(req.session.userdata){
+    //        return res.redirect('/home')
+    //     }else{}
         next()
-    } catch (error) {
-        console.log(error.message);
+    // } catch (error) {
+    //     console.log(error.message);
         
-    }
+    // }
 }
 
 
@@ -34,7 +34,7 @@ const isLogout=async(req,res,next)=>{
     //     req.session.destroy()
     //     return res.redirect('/login');
     //   }
-      return next();
+       next();
 
     
   }

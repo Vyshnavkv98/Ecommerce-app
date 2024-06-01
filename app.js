@@ -7,11 +7,10 @@ let path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors=require('cors')
-const helpers = require('handlebars-helpers')();
-const invoice=require('./public/js/invoicepdf')
 let usersRouter = require('./routes/users');
 let adminRouter = require('./routes/admin');
 const helper=require('./public/helpers/helper')
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 mongoose()
@@ -22,6 +21,15 @@ mongoose()
 const hbs=require('hbs');
 hbs.registerPartials(__dirname + '/views');
 const nocache = require('nocache');
+
+//config rate limiter
+// const limiter = rateLimit({
+//   windowMs: 5 * 60 * 1000,
+//   max: 100, 
+//   message: 'Too many requests from this IP, please try again later.'
+// });
+
+// app.use(limiter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,6 +59,18 @@ app.use(function(req, res, next) {
 
 });
 
+app.use(async (req, res, next) => {
+  try {
+    await someAsyncMiddlewareOperation();
+    next();
+  } catch (err) {
+    next(err);  // pass the error to the error handling middleware
+  }
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
 
 // error handler
 app.use(function(err, req, res, next) {

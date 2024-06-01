@@ -11,7 +11,7 @@ var fs = require('fs');
         This object will contain all the data we would like to be visible on our invoice.
         We will add data later in our demo.
 */      
-var data = {};
+let data = {};
 
 //  4.    Let's use the EasyInvoice library and call the "createInvoice" function
 easyinvoice.createInvoice(data, function (result) {

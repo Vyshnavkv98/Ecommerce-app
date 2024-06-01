@@ -58,18 +58,18 @@ const sendmail = async (name,email) => {
 
 const loadlogin = async (req, res) => {
     try {
-        res.render('userlogin')
+        return res.render('userlogin')
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
         console.log(error.message);
     }
 }
 
 const loadregister = async (req, res) => {
     try {
-        res.render('usersignup', { header: 'userheader', footer: 'userfooter' })
+        return res.render('usersignup', { header: 'userheader', footer: 'userfooter' })
     } catch (error) {
-        res.redirect('/error')
+        return  res.redirect('/error')
         console.log(error.message);
     }
 }
@@ -89,12 +89,12 @@ const insertuser = async (req, res) => {
             await sendmail(name, email)
 
             //  const emailslice = [...email].join('').slice(8)
-            res.redirect('/otpverification')
+            return res.redirect('/otpverification')
 
         }
         else {
             if (existUser.email == email) {
-                res.render('usersignup', { message1: 'User Alredy Exist' })
+                return res.render('usersignup', { message1: 'User Alredy Exist' })
             }
         }
     }
@@ -107,9 +107,9 @@ const insertuser = async (req, res) => {
 
 const loadverifyotp = async (req, res) => {
     try {
-        res.render('otpverification')
+        return res.render('otpverification')
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
         console.log(error.message);
     }
 }
@@ -136,11 +136,11 @@ const verifyotp = async (req, res) => {
             })
             const userData = await user.save();
             console.log(userData);
-            res.render('usersignup', { message2: "Rgistration successful" })
+            return res.render('usersignup', { message2: "Rgistration successful" })
 
         }
         else {
-            res.render('otpverification', { message1: "Invalid otp" })
+            return res.render('otpverification', { message1: "Invalid otp" })
 
         }
 
@@ -158,61 +158,59 @@ const verifyotp = async (req, res) => {
 
 const verifylogin = async (req, res) => {
     try {
-        const email = req.body.email
-        const password = req.body.password
-        const userdata = await User.findOne({ email: email })
-        const productdata =await product.find()
-        const categories=await category.find()
+        const email = req.body.email;
+        const password = req.body.password;
+        const userdata = await User.findOne({ email: email });
+        const productdata = await product.find();
+        const categories = await category.find();
         console.log(categories);
-        // console.log(userdata);
         console.log(req.body);
-        if (userdata) {
-            console.log('hhjwerifhjiwfhwfhfhfnejfewjf');
-            const passwordMatch = await argon2.verify(userdata.password, password)
-            console.log(passwordMatch);
-            if (passwordMatch) {
-                const isblocked = userdata.is_blocked
-                if (!isblocked) {
-                    req.session.userdata=userdata
-                    const session = req.session.userdata
-                    res.redirect('/home')
-                } else {
-                    res.render('userlogin', { message1: 'Unauthorized Access' ,productdata,categories})
-                }
-            } else {
-                res.render('userlogin', { message2: 'Please check your email or password' ,productdata,categories })
-            }
-        } else {
-            res.render('userlogin', { message3: 'User doesnot exist' ,productdata,categories })
+        
+        if (!userdata) {
+            return res.render('userlogin', { message3: 'User does not exist', productdata, categories });
         }
+
+        const passwordMatch = await argon2.verify(userdata.password, password);
+        console.log(passwordMatch);
+        
+        if (!passwordMatch) {
+            return res.render('userlogin', { message2: 'Please check your email or password', productdata, categories });
+        }
+
+        if (userdata.is_blocked) {
+            return res.render('userlogin', { message1: 'Unauthorized Access', productdata, categories });
+        }
+
+        req.session.userdata = userdata;
+        return res.redirect('/home');
+        
     } catch (error) {
-        res.redirect('/error')
         console.log(error.message);
-
+        return res.redirect('/error');
     }
+};
 
-}
 const loadhome = async (req, res) => {
     try {
         const data = req.session.userdata
         // console.log(data);
         const categories = await category.find()
         console.log(categories);
-        const productdata =await product.find().limit(8)
+        const productdata =await product.find({is_blocked:false}).limit(8)
         const bannerdata=await banner.find()
         
         if (categories) {
             if (data) {
 
-                res.render('home', { categories: categories, data,productdata,categories,bannerdata})
+                return res.render('home', { categories: categories, data,productdata,categories,bannerdata})
             } else {
-                res.render('home', { categories: categories ,productdata,categories,bannerdata})
+               return  res.render('home', { categories: categories ,productdata,categories,bannerdata})
             }
         } else {
-            res.render('home', { categories: categories,productdata,categories,bannerdata}, { message: 'category doesnot exist' })
+            return res.render('home', { categories: categories,productdata,categories,bannerdata}, { message: 'category doesnot exist' })
         }
     } catch (error) {
-        res.redirect('/error')
+         res.redirect('/error')
         console.log(error.message);
     }
 }
@@ -220,10 +218,10 @@ const loadhome = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        req.session.destroy(); 
-        res.redirect('/')
+         req.session.destroy(); 
+        return res.redirect('/')
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
         console.log(error.message);
     }
 }
@@ -234,18 +232,18 @@ const usercontrol = async (req, res) => {
         const data=req.session.userdata
         const id = req.params.id
         userdata = await User.findOne({ _id: id })
-        res.render('users/userdetails', { userdata,data })
+        return res.render('users/userdetails', { userdata,data })
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
         console.log(error.message);
     }
 }
 
 const loaderror=async(req,res)=>{
 try {
-    res.render('users/error')
+    return res.render('users/error')
 } catch (error) {
-    res.redirect('/error')
+    return res.redirect('/error')
     console.log(error.message);
 }
 }
@@ -255,10 +253,10 @@ const edituser = async (req, res) => {
     try {
         const id=req.params.id
         const userdata=await User.findOne({_id:id})
-        res.render('users/edituser', { userdata })
+        return res.render('users/edituser', { userdata })
 
     } catch (error) {
-       res.redirect('/error')
+        return res.redirect('/error')
     }
 }
 const updateuser=async(req,res)=>{
@@ -268,15 +266,15 @@ const updateuser=async(req,res)=>{
            name: req.body.name,
            mobile:req.body.mobile
         }},{new:true})
-        res.render('users/edituser',{userdata})
+        return res.render('users/edituser',{userdata})
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
     }
 }
 
 const loadforgotpassword=async(req,res)=>{
     try {
-        res.render('users/forgotpassword')
+        return res.render('users/forgotpassword')
         
     } catch (error) {
         console.log(error.message);
@@ -284,9 +282,9 @@ const loadforgotpassword=async(req,res)=>{
 }
 const loadforgototp=async(req,res)=>{
     try {
-        res.render('users/otpforgotpassword')
+        return res.render('users/otpforgotpassword')
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
     }
 }
  let email1
@@ -299,13 +297,13 @@ const verifyemail=async(req,res)=>{
             sendmail(email1)
             res.render('users/otpforgotpassword')
         }else{
-            res.redirect('/forgotpassword')
+            return res.redirect('/forgotpassword')
         }
 
         
     } catch (error) {
         console.log(error.message);
-        res.render('users/error')
+        return res.render('users/error')
     }
 }
 
@@ -313,23 +311,23 @@ const verifyforgototp=async(req,res)=>{
     const forgototp=req.body.otp
     try {
         if(otp==forgototp){
-            res.render('users/resetpassword1')
+            return res.render('users/resetpassword1')
         }else{
-            res.redirect('/otpforgotpassword',{message:'Entered otp wrong'})
+            return res.redirect('/otpforgotpassword',{message:'Entered otp wrong'})
         }
         
     } catch (error) {
         console.log(error.message);
-        res.redirect('/error')
+        return res.redirect('/error')
     }
 }
 
 const loadresetpassword=async(req,res)=>{
     try {
-        res.render('users/resetpassword1')
+        return res.render('users/resetpassword1')
         
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
     }
 }
 const resetpassword=async(req,res)=>{
@@ -338,9 +336,9 @@ const resetpassword=async(req,res)=>{
         const userdata=await User.findOneAndUpdate({
             email:email1
         },{$set:{password:password}},{new:true})
-        res.redirect('/login')
+        return res.redirect('/login')
     } catch (error) {
-        res.redirect('/error')
+        return res.redirect('/error')
     }
 }
 

@@ -15,14 +15,14 @@ const manageaddress = async (req, res) => {
         //  })
         const userdata = userdatas.address
         console.log(userdata);
-        res.render('users/manageaddress', { userdata, id })
+       return res.render('users/manageaddress', { userdata, id })
 
 
 
 
     } catch (error) {
         console.log(error.message);
-        res.render("users/error")
+      return res.render("users/error")
     }
 }
 
@@ -58,11 +58,11 @@ const loadaddress = async (req, res) => {
         console.log(userdata);
 
 
-        res.render('users/adduseraddress', { userdata })
+        return res.render('users/adduseraddress', { userdata })
 
     } catch (error) {
         console.log(error.message);
-        res.render("users/error")
+        return res.render("users/error")
     }
 }
 
@@ -92,7 +92,7 @@ const addAddress = async (req, res) => {
                 alternatenumber: req.body.alternatenumber,
             });
             await userdata.save()
-            res.render('users/adduseraddress', { userdata })
+            return res.render('users/adduseraddress', { userdata })
         }
     } catch (error) {
         console.log(error.message);
@@ -102,10 +102,10 @@ const addAddress = async (req, res) => {
 const checkoutLoadAddress = async (req, res) => {
     try {
         // res.render('users/checkoutaddaddress')
-        res.json()
+        return res.json()
     } catch (error) {
         console.log(error.message);
-        res.redirect('/error')
+        return res.redirect('/error')
     }
 }
 
@@ -128,7 +128,7 @@ const checkoutAddAddress = async (req, res) => {
             });
             await userdata.save()
             // res.redirect('/checkout')
-            res.json()
+            return  res.json()
         
     } catch (error) {
         console.log(error.message);
@@ -145,15 +145,15 @@ const deleteaddress = async (req, res) => {
             { $pull: { address: { _id: addressid } } }, { new: true }    // replace with the criteria to match the object you want to delete
         )
 
-        res.redirect('/checkout')
+        return res.redirect('/checkout')
     } catch (error) {
         console.log(error.message);
-        res.render('/error')
+        return res.render('/error')
     }
 }
 const loadeditaddress=async(req,res)=>{
     try {
-        res.render('users/editaddress')
+        return res.render('users/editaddress')
     } catch (error) {
         console.log(error.message);
     }
@@ -167,7 +167,7 @@ const editaddress = async (req, res) => {
         const userdata = await User.findById(id)
         console.log(id);
         if (Object.values(req.body).some(value => !value.trim() || value.trim().length === 0)) {
-            res.render('users/manageaddress', { message: 'please fill the field', userdata })
+            return res.render('users/manageaddress', { message: 'please fill the field', userdata })
 
         } else {
 
@@ -186,7 +186,7 @@ const editaddress = async (req, res) => {
 
         } catch (error) {
             console.log(error.message);
-            res.render('users/error',{userdata})
+            return res.render('users/error',{userdata})
         }
     }
 

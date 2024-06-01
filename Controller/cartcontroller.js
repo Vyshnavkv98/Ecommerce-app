@@ -113,7 +113,7 @@ const usercart1 = async (req, res) => {
 
       // req.session.userdata = userData;
       const data = req.session.userdata
-      res.json({ message: "Added to cart \u2713" })
+      return res.json({ message: "Added to cart" })
 
 
     } else {
@@ -518,7 +518,7 @@ const postorder = async (req, res) => {
       receipt: "rcp1"
     };
     instance.orders.create(options, function (err, order) {
-   console.log(err.message,'ordererrererere');
+   console.log(err,'ordererrererere');
       res.send({ orderId: order.id })
     });
 
@@ -1010,6 +1010,7 @@ const applyCoupon = async (req, res) => {
 
 
 const applyCoupon1 = async (req, res) => {
+ try {
   const code = req.body.val;
   const bill = req.body.bill;
 
@@ -1046,6 +1047,9 @@ const applyCoupon1 = async (req, res) => {
       res.json(307);
     }
   });
+ } catch (error) {
+  console.log(error);
+ }
 };
 
 
@@ -1342,7 +1346,7 @@ module.exports = {
   adminloadreturn,
   adminloadcancel,
   adminloaddelivered,
-
+  applyCoupon1
 
 }
 

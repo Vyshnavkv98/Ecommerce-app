@@ -21,7 +21,7 @@
                         <h1>Women’s fashion</h1>
                         <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore
                             edolore magna aliquapendisse ultrices gravida.</p>
-                        <a href="#">Shop now</a>
+                        <a href="/shop">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                             <div class="categories__text">
                                 <h4>Men’s fashion</h4>
                                 <p>358 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             <div class="categories__text">
                                 <h4>Kid’s fashion</h4>
                                 <p>273 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                             <div class="categories__text">
                                 <h4>Cosmetics</h4>
                                 <p>159 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <div class="categories__text">
                                 <h4>Accessories</h4>
                                 <p>792 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="/shop">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -80,18 +80,19 @@
 
         <div class="row property__gallery">
             {{#each productdata}}
+           {{#unless this.is_blocked}}
             <div class="col-lg-3 col-md-4 col-sm-6 mix women">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="images/{{this.image.[0]}}">
+                    <div class="product__item__pic set-bg" data-setbg="images/{{this.image.[1]}}">
                         {{#if this.quantity}}
-                        <div class="label in-stock-label">In stock</div>
+                        <div class="label in-stock-label" style="color:red">In stock</div>
                         {{else}}
                         <div class="label stockout">out of stock</div>
                         {{/if}}
 
 
                         <ul class="product__hover">
-                            <li><a href="img/product/product-1.jpg" class="image-popup"><span
+                            <li><a href="images/{{this.image.[1]}}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                             <li><a onclick="addtowishlist('{{this._id}}')"><span class="icon_heart_alt"></span></a></li>
                             {{#if this.quantity}}
@@ -113,6 +114,7 @@
                     </div>
                 </div>
             </div>
+             {{/unless}}
             {{/each}}
         </div>
     </div>

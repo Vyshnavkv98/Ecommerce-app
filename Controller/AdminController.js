@@ -202,10 +202,14 @@ const adminlogout = async (req, res) => {
 
 const loaddashboard = async (req, res) => {
 
-  const userdata = await user.find()
+  try {
+    const userdata = await user.find()
   let slno = { count: 1 }
   console.log(userdata)
   res.render('admindashboard', { users: userdata })
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const blockuser = async (req, res) => {
@@ -252,6 +256,7 @@ const getorders = async (req, res) => {
 }
 
 const excelDownload = async (req, res) => {
+ try {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Sales Data");
 
@@ -299,6 +304,9 @@ const excelDownload = async (req, res) => {
       console.log(err);
       res.status(500).send("An error occurred while generating the Excel file");
     });
+ } catch (error) {
+   console.log(error);
+ }
 };
 
 module.exports = {

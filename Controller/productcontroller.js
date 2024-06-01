@@ -12,7 +12,7 @@ const loadproduct = async (req, res) => {
     try {
         console.log('product');
         const productdata = await product.find()
-        res.render('product', { products: productdata })
+        return res.render('product', { products: productdata })
     } catch (error) {
         console.log(error.message);
     }
@@ -21,7 +21,7 @@ const loadproduct = async (req, res) => {
 const loadaddproduct = async (req, res) => {
     try {
         const categorydata = await category.find()
-        res.render('addproduct', { categorydata })
+        return res.render('addproduct', { categorydata })
     } catch (error) {
         console.log(error.message);
     }
@@ -45,7 +45,7 @@ const addproduct = async (req, res) => {
         const offerprice = (req.body.price) - (req.body.price) * (req.body.offer) / 100
         console.log(offerprice);
         if (productdata) {
-            res.render('addproduct', { message: 'product already exist' })
+            return res.render('addproduct', { message: 'product already exist' })
         } else {
             const Products = new product({
                 name: req.body.name,
@@ -62,7 +62,7 @@ const addproduct = async (req, res) => {
             })
             const productdata = await Products.save()
             console.log((productdata));
-            res.render('addproduct', { message: 'Product added successfully' })
+            return res.render('addproduct', { message: 'Product added successfully' })
         }
     } catch (error) {
         console.log(error.message);
@@ -78,7 +78,7 @@ const loadupdateproduct = async (req, res) => {
             return item
         })
         console.log(imagefile);
-        res.render('updateproduct', { products: productdata, images: imagefile })
+        return res.render('updateproduct', { products: productdata, images: imagefile })
 
     } catch (error) {
         console.log(error.message);
@@ -93,7 +93,7 @@ const updateproduct = async (req, res) => {
 
         console.log(req.body.id);
         if (req.fileValidationError) {
-            res.render('updateproduct', { error: req.fileValidationError });
+            return res.render('updateproduct', { error: req.fileValidationError });
         }
 
 
@@ -131,10 +131,11 @@ const updateproduct = async (req, res) => {
             }, { new: true }
 
         )
-        res.redirect('/admin/product')
-        console.log(productdata);
-        if (!productdata) {
-            res.render("updateproduct", { message1: 'Cannot find the product' })
+        if (productdata) {
+            return res.redirect('/admin/product')
+        }else{
+           return res.render("updateproduct", { message1: 'Cannot find the product' })
+
         }
 
     } catch (error) {
@@ -142,9 +143,10 @@ const updateproduct = async (req, res) => {
     }
 }
 const blockproduct = async (req, res) => {
+    try {
     const data = await product.findById(req.params.id)
     const blockstatus = data.is_blocked
-    try {
+    console.log(req.params.id,blockstatus);
         const productdata = await product.findByIdAndUpdate(
             req.params.id,
             {
@@ -154,7 +156,8 @@ const blockproduct = async (req, res) => {
             }, { new: true }
 
         )
-        res.redirect('/admin/product')
+        console.log(productdata);
+        return res.redirect('/admin/product')
 
 
     } catch (error) {
@@ -177,7 +180,7 @@ const loadproductlist = async (req, res) => {
         const selectedCategoryId = req.body.categoryid;
 
         if (selectedCategoryId) {
-            result = await product.paginate(
+             result = await product.paginate(
                 { category: selectedCategoryId, is_blocked: false },
                 options
             );
@@ -185,13 +188,14 @@ const loadproductlist = async (req, res) => {
             result = await product.paginate({ is_blocked: false }, options);
         }
 
-        res.render('users/productlist', { productdata: result, data, categorydata });
+        return  res.render('users/productlist', { productdata: result, data, categorydata });
     } catch (error) {
         console.log(error.message);
     }
 }
 const sortProducts = async (sortQuery, category, searchTerm) => {
-   
+ try {
+      
     if (searchTerm) {
         let query = {};
         if (searchTerm) {
@@ -210,6 +214,9 @@ const sortProducts = async (sortQuery, category, searchTerm) => {
         const productdata = await product.find(query).sort(sortQuery);
         return productdata;
     }
+ } catch (error) {
+    console.log(error);
+ }
 }
 
 
@@ -226,7 +233,7 @@ const serachlist = async (req, res) => {
             productdata = await product.find({ "name": { $regex: new RegExp(`^${searchcontent}`) },is_blocked: false });
         }
         console.log(productdata);
-        res.json({ productdata: productdata });
+        return res.json({ productdata: productdata });
     } catch (error) {
         console.log(error.message);
     }
@@ -242,7 +249,7 @@ const sorta_z = async (req, res) => {
         const searchcontent = (req.body.searchTerm).charAt(0).toUpperCase() + (req.body.searchTerm).slice(1).toLowerCase();
         const sortQuery = { name: 1 };
         const productdata = await sortProducts(sortQuery, category,searchTerm);
-        res.json({ productdata });
+        return res.json({ productdata });
     } catch (error) {
         console.log(error.message);
     }
@@ -256,7 +263,7 @@ const sortz_a = async (req, res) => {
         const category = categoryid
         const sortQuery = { name: -1 };
         const productdata = await sortProducts(sortQuery, category, searchTerm);
-        res.json({ productdata });
+        return res.json({ productdata });
     } catch (error) {
         console.log(error.message);
     }
@@ -271,7 +278,7 @@ const sortpriceascending = async (req, res) => {
         const sortQuery = { price: 1 };
         const productdata = await sortProducts(sortQuery, category, searchTerm);
         console.log(productdata,'from ascending');
-        res.json({ productdata });
+        return res.json({ productdata });
     } catch (error) {
         console.log(error.message);
     }
@@ -287,7 +294,7 @@ const sortpricedescending = async (req, res) => {
         const sortQuery = { price: -1 };
         const productdata = await sortProducts(sortQuery, category, searchTerm);
         console.log(productdata,'from descending',281);
-        res.json({ productdata });
+        return res.json({ productdata });
     } catch (error) {
         console.log(error.message);
     }
@@ -309,7 +316,7 @@ const productdetails = async (req, res) => {
         } else {
             console.log('false');
         }
-        res.render('users/productdetails', { data: data, productdata: productdata, iscartdata: cartdata })
+        return res.render('users/productdetails', { data: data, productdata: productdata, iscartdata: cartdata })
 
     } catch (error) {
         console.log(error.message);
@@ -329,7 +336,7 @@ const mensproducts = async (req, res) => {
             is_blocked: false,
             productdata
         });
-        res.json({ mensdata: mensdata, data: data, categories, categoryid });
+        return  res.json({ mensdata: mensdata, data: data, categories, categoryid });
     } catch (error) {
         console.log(error.message);
     }
@@ -338,7 +345,7 @@ const mensproducts = async (req, res) => {
 const loadcheckout = async (req, res) => {
     try {
         const data = req.session.userdata;
-        res.render('users/checkout', { data })
+        return res.render('users/checkout', { data })
     } catch (error) {
         console.log(error.message);
     }
